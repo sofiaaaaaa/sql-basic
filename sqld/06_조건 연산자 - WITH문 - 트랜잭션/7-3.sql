@@ -1,0 +1,79 @@
+CREATE TABLE TB_MEMBER_NULLIF_TEST (
+  ID SERIAL PRIMARY KEY
+, first_name VARCHAR (50) NOT NULL
+, last_name VARCHAR (50) NOT NULL
+, gender SMALLINT NOT NULL -- 1: male, 2 female
+);
+
+
+
+INSERT INTO TB_MEMBER_NULLIF_TEST (
+  FIRST_NAME
+, LAST_NAME
+, GENDER
+)
+VALUES
+   ('John', 'Doe', 1)
+ , ('David', 'Dave', 1)
+ , ('Bush', 'Lily', 2)
+;
+
+COMMIT;
+
+SELECT * FROM TB_MEMBER_NULLIF_TEST;
+
+|id|first_name|last_name|gender
+|--|----------|---------|------
+| 1|John      |Doe      |     1
+| 2|David     |Dave     |     1
+| 3|Bush      |Lily     |     2
+;
+
+SELECT
+	(SUM (
+	CASE
+		WHEN GENDER = 1 THEN 1
+		ELSE 0
+	END ) / SUM (
+	CASE
+		WHEN GENDER = 2 THEN 1
+		ELSE 0
+	END ) ) * 100 AS "MALE/FEMALE RATIO"
+FROM
+	TB_MEMBER_NULLIF_TEST;
+	
+|MALE/FEMALE RATIO
+|-----------------
+|              200
+;
+
+UPDATE TB_MEMBER_NULLIF_TEST 
+   SET GENDER = 1
+ WHERE GENDER = 2;
+
+COMMIT; 
+ 
+SELECT * FROM TB_MEMBER_NULLIF_TEST;
+
+SELECT
+(SUM(CASE WHEN GENDER = 1 THEN 1 ELSE 0 END) / SUM(CASE WHEN GENDER = 2 THEN 1 ELSE 0 END) ) * 100 AS "MALE/FEMALE RATIO"
+FROM
+TB_MEMBER_NULLIF_TEST;
+
+SQL Error [22012]: 오류: 0으로는 나눌수 없습니다.
+;
+
+
+
+
+SELECT
+(SUM(CASE WHEN GENDER = 1 THEN 1 ELSE 0 END) / 
+ NULLIF(SUM(CASE WHEN GENDER = 2 THEN 1 ELSE 0 END), 0)
+ ) * 100 AS "MALE/FEMALE RATIO"
+FROM
+TB_MEMBER_NULLIF_TEST;
+
+|MALE/FEMALE RATIO
+|-----------------
+|           (NULL)
+

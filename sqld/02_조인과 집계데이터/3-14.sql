@@ -1,0 +1,103 @@
+SELECT
+      AVG (PRICE)
+ FROM
+      PRODUCT;
+
+
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+SELECT
+      B.GROUP_NAME
+    , AVG (PRICE)
+ FROM PRODUCT A
+INNER JOIN PRODUCT_GROUP B
+    ON (A.GROUP_ID = B.GROUP_ID)
+GROUP BY
+B.GROUP_NAME;
+
+
+
+
+
+
+--보여줄꺼 다 보여주면서 
+--group_name별 평균가격을 보고 싶어요~
+SELECT
+       A.PRODUCT_NAME 
+     , A.PRICE
+     , B.GROUP_NAME
+     , AVG (A.PRICE) OVER (PARTITION BY B.GROUP_NAME)  
+FROM
+PRODUCT A
+INNER JOIN PRODUCT_GROUP B
+ON (A.GROUP_ID = B.GROUP_ID);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+       A.PRODUCT_NAME 
+     , A.PRICE
+     , B.GROUP_NAME
+     , AVG (A.PRICE) OVER (PARTITION BY B.GROUP_NAME ORDER BY B.GROUP_NAME)  
+FROM
+PRODUCT A
+INNER JOIN PRODUCT_GROUP B
+ON (A.GROUP_ID = B.GROUP_ID);
+
+
+
+
+
+
+
+
+
+
+--누적평균을 구할수있다. 
+SELECT
+       A.PRODUCT_NAME 
+     , A.PRICE
+     , B.GROUP_NAME
+     , AVG (A.PRICE) OVER (PARTITION BY B.GROUP_NAME ORDER BY A.PRICE)  --누적집계
+FROM
+PRODUCT A
+INNER JOIN PRODUCT_GROUP B
+ON (A.GROUP_ID = B.GROUP_ID);
+
+
+
+
+
+
+
+
+

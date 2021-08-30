@@ -1,0 +1,157 @@
+DROP TABLE EMPLOYEES; 
+
+CREATE TABLE EMPLOYEES 
+(
+  EMPLOYEE_ID SERIAL PRIMARY KEY
+, EMPLOYEE_NAME VARCHAR (255) NOT NULL
+);
+ 
+CREATE TABLE KEYS 
+(
+ EMPLOYEE_ID INT PRIMARY KEY,
+ EFFECTIVE_DATE DATE NOT NULL,
+ FOREIGN KEY (EMPLOYEE_ID) 
+ REFERENCES EMPLOYEES (EMPLOYEE_ID)
+);
+ 
+CREATE TABLE HIPOS 
+(
+ EMPLOYEE_ID INT PRIMARY KEY,
+ EFFECTIVE_DATE DATE NOT NULL,
+ FOREIGN KEY (EMPLOYEE_ID) 
+ REFERENCES EMPLOYEES (EMPLOYEE_ID)
+);
+
+INSERT INTO EMPLOYEES (EMPLOYEE_NAME)
+VALUES
+ ('Joyce Edwards'),
+ ('Diane Collins'),
+ ('Alice Stewart'),
+ ('Julie Sanchez'),
+ ('Heather Morris'),
+ ('Teresa Rogers'),
+ ('Doris Reed'),
+ ('Gloria Cook'),
+ ('Evelyn Morgan'),
+ ('Jean Bell');
+
+COMMIT;
+
+SELECT * FROM EMPLOYEES; 
+ 
+INSERT INTO KEYS
+VALUES
+ (1, '2000-02-01'),
+ (2, '2001-06-01'),
+ (5, '2002-01-01'),
+ (7, '2005-06-01');
+
+COMMIT; 
+
+SELECT * FROM KEYS; 
+ 
+INSERT INTO HIPOS
+VALUES
+ (9, '2000-01-01'),
+ (2, '2002-06-01'),
+ (5, '2006-06-01'),
+ (10, '2005-06-01');
+
+COMMIT;
+
+SELECT * FROM HIPOS; 
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+       EMPLOYEE_ID
+  FROM
+       KEYS
+INTERSECT 
+SELECT
+       EMPLOYEE_ID
+  FROM
+       HIPOS;
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+  SELECT
+       A.EMPLOYEE_ID
+   FROM
+       KEYS A, HIPOS B 
+  WHERE  A.EMPLOYEE_ID = B.EMPLOYEE_ID
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  SELECT
+      EMPLOYEE_ID
+  FROM
+      KEYS
+INTERSECT 
+SELECT
+      EMPLOYEE_ID
+  FROM
+      HIPOS
+ORDER BY EMPLOYEE_ID DESC;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+       A.EMPLOYEE_ID
+  FROM
+       KEYS A
+     , HIPOS B 
+ WHERE A.EMPLOYEE_ID = B.EMPLOYEE_ID
+ORDER BY A.EMPLOYEE_ID DESC;
+
+SELECT A.EMPLOYEE_ID
+FROM KEYS A INNER JOIN HIPOS B 
+ON (A.EMPLOYEE_ID = B.EMPLOYEE_ID)
+ORDER BY A.EMPLOYEE_ID DESC;
+

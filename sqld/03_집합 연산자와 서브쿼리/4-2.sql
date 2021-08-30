@@ -1,0 +1,104 @@
+SELECT
+       *
+  FROM
+      SALES2007_1
+UNION ALL 
+SELECT
+       *
+  FROM
+     SALES2007_2
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+       NAME
+  FROM
+      SALES2007_1
+UNION ALL 
+SELECT
+       NAME
+  FROM
+     SALES2007_2
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+      AMOUNT
+  FROM
+      SALES2007_1
+UNION ALL
+SELECT
+      AMOUNT
+  FROM
+      SALES2007_2
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+       *
+  FROM
+       SALES2007_1
+UNION ALL
+SELECT
+       *
+  FROM
+       SALES2007_2
+ORDER BY AMOUNT DESC;
+
+
+SELECT
+       *
+  FROM
+       SALES2007_1
+UNION ALL
+SELECT
+       *
+  FROM
+       SALES2007_2
+ORDER BY AMOUNT DESC;
+

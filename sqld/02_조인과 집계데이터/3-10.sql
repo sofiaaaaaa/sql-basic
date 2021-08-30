@@ -1,0 +1,223 @@
+CREATE TABLE SALES 
+(
+BRAND VARCHAR NOT NULL,
+SEGMENT VARCHAR NOT NULL,
+QUANTITY INT NOT NULL,
+PRIMARY KEY (BRAND, SEGMENT)
+);
+
+INSERT INTO SALES (BRAND, SEGMENT, QUANTITY)
+VALUES
+  ('ABC', 'Premium', 100)
+, ('ABC', 'Basic', 200)
+, ('XYZ', 'Premium', 100)
+, ('XYZ', 'Basic', 300);
+
+COMMIT;
+
+SELECT * FROM sales; 
+
+
+
+
+
+
+
+
+SELECT
+       BRAND
+     , SEGMENT
+     , SUM (QUANTITY)
+  FROM
+       SALES
+GROUP BY BRAND, SEGMENT;
+
+
+
+
+
+
+
+
+
+SELECT
+       BRAND
+     , SUM (QUANTITY)
+  FROM
+       SALES
+GROUP BY
+       BRAND;
+
+     
+      
+      
+      
+      
+      
+SELECT
+       SEGMENT
+     , SUM (QUANTITY)
+  FROM
+       SALES
+GROUP BY SEGMENT;
+
+
+
+
+
+
+
+
+
+
+SELECT
+       SUM (QUANTITY)
+  FROM
+       SALES;
+   
+      
+      
+--동일한 테이블을 4번씩이나 읽고있다. -> 성능저하 가능성이 존재합니다.
+--너무 sql문이 길어진다. -> 복잡해진다 -> 유지보수가 용이하지않다.
+SELECT BRAND
+     , SEGMENT
+     , SUM (QUANTITY)
+  FROM SALES
+GROUP BY BRAND, SEGMENT
+UNION ALL 
+SELECT BRAND
+     , NULL
+     , SUM (QUANTITY)
+FROM SALES
+GROUP BY BRAND
+UNION ALL 
+SELECT NULL
+     , SEGMENT
+     , SUM (QUANTITY)
+ FROM SALES
+GROUP BY SEGMENT
+UNION ALL 
+SELECT NULL
+     , NULL
+     , SUM (QUANTITY)
+FROM SALES;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+	  BRAND
+	, SEGMENT
+	, SUM (QUANTITY)
+FROM
+	SALES
+GROUP BY 
+	GROUPING SETS ( 
+	  (BRAND, SEGMENT)
+	, (BRAND)
+	, (SEGMENT)
+	, () 
+);
+
+
+
+
+
+
+SELECT
+       GROUPING(BRAND) GROUPING_BRAND
+     , GROUPING(SEGMENT) GROUPING_SEGEMENT
+     , BRAND
+     , SEGMENT
+     , SUM (QUANTITY)
+ FROM
+      SALES
+GROUP BY
+GROUPING SETS 
+( 
+  (BRAND, SEGMENT)
+, (BRAND)
+, (SEGMENT)
+, () 
+)
+ORDER BY BRAND, SEGMENT;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+		CASE WHEN GROUPING(BRAND) = 0 AND GROUPING(SEGMENT) = 0 THEN '브랜드별+등급별'
+			 WHEN GROUPING(BRAND) = 0 AND GROUPING(SEGMENT) = 1 THEN '브랜드별'
+		     WHEN GROUPING(BRAND) = 1 AND GROUPING(SEGMENT) = 0 THEN '등급별'
+			 WHEN GROUPING(BRAND) = 1 AND GROUPING(SEGMENT) = 1 THEN '전체합계'
+			 ELSE '' 
+			 END AS "집계기준"	
+     , BRAND
+     , SEGMENT
+     , SUM (QUANTITY)
+ FROM
+      SALES
+GROUP BY
+GROUPING SETS 
+( 
+  (BRAND, SEGMENT)
+, (BRAND)
+, (SEGMENT)
+, () 
+)
+ORDER BY BRAND, SEGMENT;
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

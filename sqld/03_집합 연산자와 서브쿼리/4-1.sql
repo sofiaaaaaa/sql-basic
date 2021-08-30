@@ -1,0 +1,144 @@
+CREATE TABLE SALES2007_1
+(
+  NAME VARCHAR(50)
+, AMOUNT NUMERIC(15,2)
+);
+
+INSERT INTO SALES2007_1 
+VALUES 
+  ('Mike', 150000.25)
+, ('Jon', 132000.75)
+, ('Mary', 100000)
+;
+
+COMMIT; 
+
+SELECT * FROM SALES2007_1;
+
+CREATE TABLE SALES2007_2
+(
+  NAME VARCHAR(50)
+, AMOUNT NUMERIC(15,2)
+);
+
+INSERT INTO SALES2007_2 
+VALUES 
+  ('Mike', 120000.25)
+, ('Jon', 142000.75)
+, ('Mary', 100000)
+;
+
+COMMIT; 
+
+
+SELECT * FROM SALES2007_2; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+       *
+  FROM
+      SALES2007_1
+UNION 
+SELECT
+       *
+  FROM
+     SALES2007_2
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+       NAME
+  FROM
+      SALES2007_1
+UNION 
+SELECT
+       NAME
+  FROM
+     SALES2007_2
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+      AMOUNT
+  FROM
+      SALES2007_1
+UNION 
+SELECT
+      AMOUNT
+  FROM
+      SALES2007_2
+;
+
+
+
+
+
+
+
+
+
+
+SELECT
+       *
+  FROM 
+      SALES2007_1
+UNION 
+SELECT
+       *
+  FROM 
+      SALES2007_2
+ORDER BY AMOUNT DESC
+

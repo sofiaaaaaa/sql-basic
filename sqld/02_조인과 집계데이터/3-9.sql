@@ -1,0 +1,85 @@
+SELECT
+       CUSTOMER_ID
+     , SUM(AMOUNT) AS AMOUNT
+  FROM
+       PAYMENT
+GROUP BY CUSTOMER_ID
+ORDER BY amount DESC ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+       A.CUSTOMER_ID
+     , B.EMAIL
+     , SUM(A.AMOUNT) AS AMOUNT_SUM
+  FROM
+       PAYMENT A
+     , CUSTOMER B 
+ WHERE A.CUSTOMER_ID = B.CUSTOMER_ID       
+GROUP BY A.CUSTOMER_ID,B.EMAIL
+HAVING SUM(A.AMOUNT) > 200
+;
+
+--having 절은 group by를 한 결과 중에서 -> 뽑을 정보만 뽑는다. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+       STORE_ID
+     , COUNT(CUSTOMER_ID) AS COUNT
+  FROM
+       CUSTOMER
+GROUP BY STORE_ID;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+        STORE_ID
+     ,  COUNT(CUSTOMER_ID) AS COUNT
+  FROM
+        CUSTOMER
+GROUP BY STORE_ID
+HAVING COUNT(CUSTOMER_ID)  > 300
+;
+
+
+SELECT * FROM store 
+WHERE store_id = 1; 

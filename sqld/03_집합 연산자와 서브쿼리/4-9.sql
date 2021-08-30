@@ -1,0 +1,22 @@
+SELECT
+       FILM_ID
+     , TITLE
+     , RENTAL_RATE
+  FROM FILM
+ WHERE RENTAL_RATE > 
+ (
+      SELECT
+             AVG (RENTAL_RATE)
+        FROM FILM 
+ );
+
+
+SELECT  FILM_ID
+     , TITLE
+     , RENTAL_RATE 
+FROM 
+(
+SELECT FILM_ID, title, rental_rate, AVG(A.RENTAL_RATE) OVER() AS AVG_RENTAL_RATE
+FROM FILM A 
+) A 
+WHERE rental_rate > AVG_RENTAL_RATE

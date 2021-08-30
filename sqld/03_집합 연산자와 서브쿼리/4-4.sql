@@ -1,0 +1,60 @@
+SELECT
+       DISTINCT INVENTORY.FILM_ID, FILM.TITLE
+  FROM
+       INVENTORY
+INNER JOIN 
+       FILM 
+ON FILM.FILM_ID = INVENTORY.FILM_ID
+ORDER BY FILM.TITLE;
+
+SELECT
+       DISTINCT A.FILM_ID, B.TITLE
+  FROM
+       INVENTORY A
+INNER JOIN 
+       FILM B
+ON B.FILM_ID = A.FILM_ID
+ORDER BY B.TITLE;
+
+--필름과 인벤토리는 1:m관계 -> 두 테이블을 조인하면 -> 영화하나당 여러개의 재고가 나오는거죠 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--전체영화에서 
+SELECT
+       FILM_ID
+     , TITLE
+  FROM
+       FILM
+EXCEPT 
+--재고가 존재하는 영화를 뺀다 
+SELECT
+       DISTINCT INVENTORY.FILM_ID
+     , TITLE
+  FROM
+       INVENTORY
+INNER JOIN 
+       FILM 
+ON FILM.FILM_ID = INVENTORY.FILM_ID
+ORDER BY TITLE;
+--결과집합	은 재고가 존재하지 않는 영화다. 
+
+SELECT * FROM INVENTORY 
+WHERE FILM_ID = 108;
+

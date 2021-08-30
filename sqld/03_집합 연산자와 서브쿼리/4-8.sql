@@ -1,0 +1,43 @@
+SELECT
+       FIRST_NAME
+     , LAST_NAME
+  FROM
+       CUSTOMER C
+WHERE
+EXISTS ( SELECT 1
+           FROM PAYMENT P
+          WHERE P.CUSTOMER_ID = C.CUSTOMER_ID
+            AND P.AMOUNT > 11 
+               )
+ORDER BY FIRST_NAME, LAST_NAME;
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT * FROM CUSTOMER; --599-8=591 591+8=599
+
+
+
+
+
+
+SELECT
+       FIRST_NAME
+     , LAST_NAME
+  FROM
+       CUSTOMER C
+WHERE
+  NOT EXISTS ( SELECT 1
+                 FROM PAYMENT P
+                WHERE P.CUSTOMER_ID = C.CUSTOMER_ID
+                  AND P.AMOUNT > 11 
+               )
+ORDER BY FIRST_NAME, LAST_NAME;
